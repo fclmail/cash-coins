@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA$H COIN Timer</title>
+    <style>
+        body {
+            background-color: #002400; /* Dark green background */
+            color: #00ff00; /* Fluorescent green text */
+            font-family: 'Orbitron', Arial, sans-serif; /* High-tech sci-fi font */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 300px; /* Adjust size as needed */
+            margin-top: 20px;
+        }
+
+        .timer-container {
+            background: #003800; /* Slightly lighter green for contrast */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #00ff00, inset 0 0 10px #005500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .headline {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 1.5em;
+            color: #33ff33;
+            text-shadow: 0 0 8px #33ff33, 0 0 16px #33ff33;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-unit span {
+            font-size: 0.6em;
+        }
+
+        .milliseconds {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .paypal-container {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Image -->
+    <img src="cashgif.gif" alt="Cash GIF">
+
+    <!-- Timer -->
+    <div class="timer-container">
+        <div class="headline">CA$H COIN BUY NOW BEFORE PRICE GOES UP</div>
+        <div class="timer" id="countdown"></div>
+        <div class="milliseconds" id="milliseconds"></div>
+    </div>
+
+    <!-- PayPal Button -->
+    <div class="paypal-container">
+        <script src="https://www.paypal.com/sdk/js?client-id=BAAD6tp9GGPNolM5XDQ1JVr0cfhZv3Y9vT_TIPSwqsYPKuHiOb2z1soff0v9ykTk2_68MhGIFgx8rfhj00&components=hosted-buttons&disable-funding=venmo&currency=CAD"></script>
+        <div id="paypal-container-XCPWTXP9Q4PVS"></div>
+        <script>
+          paypal.HostedButtons({
+            hostedButtonId: "XCPWTXP9Q4PVS",
+          }).render("#paypal-container-XCPWTXP9Q4PVS");
+        </script>
+    </div>
+
+    <script>
+        const endTime = new Date("2024-12-18T16:00:00-05:00"); // Eastern Time
+        const timerContainer = document.getElementById("countdown");
+        const millisecondsContainer = document.getElementById("milliseconds");
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = endTime - now;
+
+            if (diff <= 0) {
+                timerContainer.innerHTML = "<div>Timer Finished!</div>";
+                millisecondsContainer.innerHTML = "";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            const milliseconds = Math.floor(diff % 1000);
+
+            timerContainer.innerHTML = `
+                <div class="time-unit"><span>${days}</span>Days</div>
+                <div class="time-unit"><span>${hours}</span>Hours</div>
+                <div class="time-unit"><span>${minutes}</span>Minutes</div>
+                <div class="time-unit"><span>${seconds}</span>Seconds</div>
+            `;
+
+            millisecondsContainer.textContent = `${milliseconds.toString().padStart(3, '0')} ms`;
+        }
+
+        setInterval(updateTimer, 1); // Update every millisecond
+    </script>
+</body>
+</html>
